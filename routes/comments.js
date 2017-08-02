@@ -1,9 +1,30 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 
 const router = express.Router({ mergeParams: true });
 const Blog = require('../models/blog');
 const Comment = require('../models/comment');
 const middleware = require('../middleware');
+
+const mailer = nodemailer.createTransport({
+  service: 'gmail',
+  port: 25,
+  secure: false,
+  auth: {
+    user: 'ramblingsblogger@gmail.com',
+    pass: process.env.EMAILPASSWORD
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+const mailTo = {
+  from: '"Ramblings Blog" <ramblingsblogger@gmail.com',
+  to: 'cmaxey02@gmail.com',
+  subject: 'New Comment!',
+  html: '<p>Someone commented on a post!<br><a href="ramblings.herokuapp.com">Check it out!</a></p>'
+};
 
 // NEW COMMENT
 router.get('/new', middleware.isLoggedIn, (req, res) => {
@@ -37,6 +58,13 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
           blog.save();
           req.flash('success', 'Successfully created new comment!');
           res.redirect(`/blogs/${blog._id}`);
+          mailer.sendMail(mailTo, (err3, info) => {
+            if (err3) {
+              console.log(err3);
+            } else {
+              console.log('Message sent: ', info.messageId, info.response);
+            }
+          });
         }
       });
     }
