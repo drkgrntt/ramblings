@@ -1,38 +1,38 @@
 <% include ../partials/header %>
 
 <div class="ui main text container segment">
-    <div class="ui huge header"><%= blog.title %></div>
-    <div class="ui top attached">
-        <div class="item">
-            <img class="ui centered rounded image" src="<%= blog.image %>">
-            <div class="content">
-                <span><%= blog.created.toDateString() %></span>
-            </div>
-            <div class="description">
-                <p><%- blog.body %></p>
-                <hr>
-            </div>  
-        </div>
+  <div class="ui huge header"><%= blog.title %></div>
+  <div class="ui top attached">
+    <div class="item">
+      <img class="ui centered rounded image" src="<%= blog.image %>">
+      <div class="content">
+        <span><%= blog.created.toDateString() %></span>
+      </div>
+      <div class="description">
+        <p><%- blog.body %></p>
+        <hr>
+      </div>  
     </div>
-        <div class="comments">
-            <div class="content">
-                <strong><%= comment.author.username %></strong>
-            </div>
-            <hr>
-            <div class="description">
-                <p><%- comment.text %></p>
-            </div>
-            <div>
-                <span><%= comment.created.toDateString() %></span>
-            </div>
-        </div>
-    <div class="ui huge header">Edit reply to <%= comment.author.username %></div>
-    <form class="ui form" action="/blogs/<%= blog_id %>/comments/<%= comment_id %>/replies/<%= reply._id %>/?_method=PUT" method="POST">
-        <div class="field">
-            <textarea name="reply[text]"><%= reply.text %></textarea>
-        </div>        
-        <input class="ui violet big basic button" type="submit">
-    </form>
+  </div>
+    <div class="comments">
+      <div class="content">
+        <strong><%= comment.author.username %></strong>
+      </div>
+      <hr>
+      <div class="description">
+        <p><%- comment.text %></p>
+      </div>
+      <div>
+        <span><%= comment.created.toDateString() %></span>
+      </div>
+    </div>
+  <div class="ui huge header">Edit reply to <%= comment.author.username %></div>
+  <form class="ui form" action="/blogs/<%= blog_id %>/comments/<%= comment_id %>/replies/<%= reply._id %>/?_method=PUT" method="POST">
+    <div class="field">
+      <textarea name="reply[text]"><%= reply.text %></textarea>
+    </div>        
+    <input class="ui violet big basic button" type="submit">
+  </form>
 </div>
 
 <% include ../partials/footer %>

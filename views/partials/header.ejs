@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Ramblings</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css">
-        <link href="/stylesheets/app.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-        <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=d574ft2r9iui2m3o223amyuddvxa5maaa9a51eoptz0ihypf"></script>
-        <script>tinymce.init({ selector:'textarea' });</script>
-        <script src="https://use.fontawesome.com/9e8810a5ed.js"></script>
-    </head>
-    <body>
-        <div class="ui menu">
-            <div class="ui container">
-                <div class="header item"><i class="fa fa-paint-brush"></i></div>
-                <a href="/" class="item">Home</a>
-                <% if(currentUser && currentUser.isAdmin) { %>
-                    <a href="/blogs/new" class="item">New Post</a>
-                <% } %>
-                <div class="right menu">
-                    <% if(!currentUser){ %>
-                        <a href="/register" class="item">Sign Up</a>
-                        <a href="/login" class="item">Login</a>
-                    <% } else { %>
-                        <span class="item">Signed in as <%= currentUser.username %></span>
-                        <a href="/logout" class="item">Logout</a>
-                    <% } %>
-                </div>
-            </div>
+  <head>
+    <title>Ramblings</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/app.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=d574ft2r9iui2m3o223amyuddvxa5maaa9a51eoptz0ihypf"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
+    <script src="https://use.fontawesome.com/9e8810a5ed.js"></script>
+  </head>
+  <body>
+    <div class="ui menu">
+      <div class="ui container">
+        <div class="header item"><i class="fa fa-paint-brush"></i></div>
+        <a href="/" class="item">Home</a>
+        <% if (currentUser && currentUser.isAdmin) { %>
+          <a href="/blogs/new" class="item">New Post</a>
+        <% } %>
+        <div class="right menu">
+          <% if (!currentUser) { %>
+            <a href="/register" class="item">Sign Up</a>
+            <a href="/login" class="item">Login</a>
+          <% } else { %>
+            <span class="item">Signed in as <%= currentUser.username %></span>
+            <a href="/logout" class="item">Logout</a>
+          <% } %>
         </div>
-        <div class="ui container">
-            <% if(error && error.length > 0){ %>
-                <div class="error flash"><%= error %></div>
-            <% } %>
-            <% if(success && success.length > 0){ %>
-                <div class="success flash"><%= success %></div>
-            <% } %>
-        </div>
+      </div>
+    </div>
+    <div class="ui container">
+      <% if (error && error.length > 0) { %>
+        <div class="error flash"><%= error %></div>
+      <% } %>
+      <% if (success && success.length > 0) { %>
+        <div class="success flash"><%= success %></div>
+      <% } %>
+    </div>
+    
