@@ -1,18 +1,18 @@
-var mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-var replySchema = mongoose.Schema({
-    text: String,
-    author: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
-        username: String
+const replySchema = mongoose.Schema({
+  text: String,
+  author: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     },
-    created: {
-        type: Date, 
-        default: Date.now
-    }
+    username: String
+  },
+  created: {
+    type: Date, 
+    default: Date.now
+  }
 });
 
-module.exports = mongoose.model("Reply", replySchema);
+module.exports = mongoose.model('Reply', replySchema);
