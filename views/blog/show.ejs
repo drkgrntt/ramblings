@@ -1,0 +1,67 @@
+<% include ../partials/header %>
+
+<div class="ui main text container segment">
+    <div class="ui huge header"><%= blog.title %></div>
+    <div class="ui top attached">
+        <div class="item">
+            <img class="ui centered rounded image" src="<%= blog.image %>">
+            <div class="content">
+                <span><%= blog.created.toDateString() %></span>
+            </div>
+            <div class="description">
+                <p><%- blog.body %></p>
+                <hr>
+            </div>
+            <% if(currentUser && currentUser.isAdmin) { %>
+                <a class="ui orange basic button" href="/blogs/<%= blog._id %>/edit">Edit</a>
+                <form class="delete" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+                    <button class="ui red basic button">Delete</button>
+                </form>
+            <% } %>
+            <a class="ui green basic button" href="/blogs/<%= blog._id %>/comments/new">Comment!</a>
+            <% blog.comments.forEach(function(comment) { %>
+                <div class="comments">
+                    <div class="content">
+                        <strong><%= comment.author.username %></strong>
+                    </div>
+                    <hr>
+                    <div class="description">
+                        <p><%- comment.text %></p>
+                    </div>
+                    <div>
+                        <span><%= comment.created.toDateString() %></span>
+                    </div>
+                    <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                        <a class="ui orange basic button" href="/blogs/<%= blog._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                        <form class="delete" action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                            <button class="ui red basic button">Delete</button>
+                        </form>
+                    <% } %>
+                    <a class="ui green basic button" href="/blogs/<%= blog._id %>/comments/<%= comment._id %>/replies/new">Reply!</a>
+                    <% comment.replies.forEach(function(reply) { %>
+                        <div class="comments">
+                            <div class="content">
+                                <strong><%= reply.author.username %></strong>
+                            </div>
+                            <hr>
+                            <div class="description">
+                                <p><%- reply.text %></p>
+                            </div>
+                            <div>
+                                <span><%= reply.created.toDateString() %></span>
+                            </div>
+                            <% if(currentUser && reply.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                                <a class="ui orange basic button" href="/blogs/<%= blog._id %>/comments/<%= comment._id %>/replies/<%= reply._id %>/edit">Edit</a>
+                                <form class="delete" action="/blogs/<%= blog._id %>/comments/<%= comment._id %>/replies/<%= reply._id %>?_method=DELETE" method="POST">
+                                    <button class="ui red basic button">Delete</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    <% }); %>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

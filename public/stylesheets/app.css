@@ -1,0 +1,74 @@
+.container.main {
+    margin-top: 4.0em;
+}
+
+.delete {
+    display: inline;
+}
+
+hr { 
+  border: 0; 
+  height: 1px; 
+  background-image: -webkit-linear-gradient(left, #555, #bbb, #555);
+  background-image: -moz-linear-gradient(left, #555, #bbb, #555);
+  background-image: -ms-linear-gradient(left, #555, #bbb, #555);
+  background-image: -o-linear-gradient(left, #555, #bbb, #555); 
+}
+
+.comments {
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.ui.huge.header {
+    font-family: 'Indie Flower', cursive;
+    font-size: 50px;
+    text-shadow:
+    -1px -1px 0 #eee,
+    1px -1px 0 #eee,
+    -1px 1px 0 #eee,
+    1px 1px 0 #eee;  
+}
+
+
+/* FLASH STYLES */
+
+.success {
+    background-color: rgba(200, 255, 200, .7);
+    color: rgb(0, 150, 0);
+    border: 1px solid rgb(150, 255, 150);
+}
+.error {
+    background-color: rgba(255, 200, 200, .7);
+    color: rgb(150, 0, 0);
+    border: 1px solid rgb(255, 150, 150);
+}
+
+.flash {
+    padding: 13px;
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 50px;
+}
+
+/* PASTEL STYLES */
+
+body {
+    background-image: url("http://i.imgur.com/O5VTmcA.jpg?1");
+    background-size: 100%;
+    /*background-attachment: fixed;*/
+}
+
+.ui.top.attached.segment {
+    background-color: rgba(235, 235, 255, .6);
+}
+
+.ui.main.text.container.segment {
+    background-color: rgba(235, 235, 255, .6);
+}
+
+.ui.menu {
+    background: rgba(255, 245, 245, .6);
+}
