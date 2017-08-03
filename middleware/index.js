@@ -1,5 +1,6 @@
 const Comment = require('../models/comment');
 const Reply = require('../models/reply');
+const User = require('../models/user');
 
 // all middleware goes here
 const middlewareObj = {};
@@ -43,16 +44,14 @@ middlewareObj.checkReplyOwnership = (req, res, next) => {
       if (err) {
         req.flash('error', 'You need to be logged in to do that.');
         res.redirect('back');
+      // does the user own the comment?
+      } else if (foundReply.author.id.equals(req.user._id)) {
+        next();
+      } else if (req.user.isAdmin) {
+        next();
       } else {
-        //does user own the comment?
-        if (foundReply.author.id.equals(req.user._id)) {
-          next();
-        } else if (req.user.isAdmin) {
-          next();
-        } else {
-          req.flash('error', 'You don\'t have permission to do that.');
-          res.redirect('back');
-        }
+        req.flash('error', 'You don\'t have permission to do that.');
+        res.redirect('back');
       }
     });
   } else {
