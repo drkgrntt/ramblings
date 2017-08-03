@@ -22,6 +22,15 @@
             <a href="/register" class="item">Sign Up</a>
             <a href="/login" class="item">Login</a>
           <% } else { %>
+            <form action="/<%= currentUser._id %>?_method=PUT" method="POST">
+              <% if (currentUser && currentUser.isSubscribed) { %>
+                <input type="hidden" name="user[isSubscribed]" value=false>
+                <button class="item noBorder">Unsubscribe</button>
+              <% } else { %>
+                <input type="hidden" name="user[isSubscribed]" value=true>
+                <button class="item noBorder">Subscribe!</button>
+              <% } %>
+            </form>
             <span class="item">Signed in as <%= currentUser.username %></span>
             <a href="/logout" class="item">Logout</a>
           <% } %>

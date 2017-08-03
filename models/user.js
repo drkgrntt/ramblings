@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  isAdmin: { type: Boolean, default: false }
+  isSubscribed: { type: Boolean, default: false },
+  isAdmin: { type: Boolean, default: false },
 });
 
 UserSchema.plugin(passportLocalMongoose);

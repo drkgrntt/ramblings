@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
+const middleware = require('../middleware');
 
 router.get('/', (req, res) => {
   res.redirect('/blogs');
@@ -21,6 +22,7 @@ router.post('/register', (req, res) => {
   }
   User.register(newUser, req.body.password, (err) => {
     if (err) {
+      req.flash('error', 'Please try a different username or email');
       return res.redirect('register');
     }
     passport.authenticate('local')(req, res, () => {
@@ -41,6 +43,18 @@ router.post('/login', passport.authenticate('local',
     successRedirect: '/blogs',
     failureRedirect: 'login'
   }), () => {
+});
+
+// SUBSCRIBE LOGIC
+router.put('/:user_id', middleware.isLoggedIn, (req, res) => {
+  User.findByIdAndUpdate(req.user._id, req.body.user, (err) => {
+    if (err) {
+      console.log(err);
+      res.redirect('back');
+    } else {
+      res.redirect('/blogs');
+    }
+  });
 });
 
 // LOGOUT

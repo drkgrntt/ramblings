@@ -1,8 +1,26 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 
 const router = express.Router();
 const Blog = require('../models/blog');
+const User = require('../models/user');
 const middleware = require('../middleware');
+
+// NODEMAILER CONFIG
+let mailer = nodemailer.createTransport({
+  service: 'gmail',
+  port: 25,
+  secure: false,
+  auth: {
+    user: 'ramblingsblogger@gmail.com',
+    pass: process.env.EMAILPASSWORD
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+let emails = [];
 
 // INDEX ROUTE
 router.get('/', (req, res) => {
@@ -33,6 +51,29 @@ router.post('/', middleware.isAdmin, (req, res) => {
       // redirect to the index
       req.flash('success', 'Blog post created!');
       res.redirect('/blogs');
+      User.find({}, (err2, allUsers) => {
+        emails = [];
+        allUsers.forEach((user) => {
+          if (user.isSubscribed) {
+            emails.push(user.email);
+          }
+        });
+        emails.forEach((email) => {
+          let mailTo = {
+            from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
+            subject: 'New Blog Post!',
+            html: '<p>Hi! I just created a new blog post!</p><br><p><a href="ramblings.herokuapp.com">Come check it out!</a></p>'
+          };
+          mailTo.to = email;
+          mailer.sendMail(mailTo, (err3, info) => {
+            if (err3) {
+              console.log(err3);
+            } else {
+              console.log('Message sent: ', info.messageId, info.response);
+            }
+          });
+        });
+      });
     }
   });
 });

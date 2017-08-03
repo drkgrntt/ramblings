@@ -32,6 +32,9 @@ hr {
   1px 1px 0 #eee;  
 }
 
+.noBorder {
+  border: 0;
+}
 
 /* FLASH STYLES */
 

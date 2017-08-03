@@ -6,7 +6,7 @@ const Blog = require('../models/blog');
 const Comment = require('../models/comment');
 const middleware = require('../middleware');
 
-const mailer = nodemailer.createTransport({
+let mailer = nodemailer.createTransport({
   service: 'gmail',
   port: 25,
   secure: false,
@@ -19,9 +19,9 @@ const mailer = nodemailer.createTransport({
   }
 });
 
-const mailTo = {
-  from: '"Ramblings Blog" <ramblingsblogger@gmail.com',
-  to: 'cmaxey02@gmail.com',
+let mailTo = {
+  from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
+  to: 'drkgrntt@gmail.com',
   subject: 'New Comment!',
   html: '<p>Someone commented on a post!<br><a href="ramblings.herokuapp.com">Check it out!</a></p>'
 };
