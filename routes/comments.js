@@ -21,7 +21,7 @@ let mailer = nodemailer.createTransport({
 
 let mailTo = {
   from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
-  to: 'drkgrntt@gmail.com',
+  to: 'cmaxey02@gmail.com',
   subject: 'New Comment!',
   html: '<p>Someone commented on a post!<br><a href="ramblings.herokuapp.com">Check it out!</a></p>'
 };
