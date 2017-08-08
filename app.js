@@ -14,6 +14,7 @@ const User = require('./models/user');
     
 // ROUTES    
 const blogRoutes = require('./routes/blogs');
+const draftRoutes = require('./routes/drafts');
 const commentRoutes = require('./routes/comments');
 const replyRoutes = require('./routes/replies');
 const indexRoutes = require('./routes/index');
@@ -36,15 +37,6 @@ app.use(require('express-session')(
     secret: 'Once again Maggie wins cutest dog!',
     resave: false,
     saveUninitialized: false
-  },
-  {
-    cookie: {
-      path: '/',
-      httpOnly: true,
-      secure: false,
-      maxAge: 10 * 60 * 1000
-    },
-    rolling: true
   }
 ));
 
@@ -65,6 +57,7 @@ app.use((req, res, next) => {
 
 // ROUTES CONFIG
 app.use('/blogs', blogRoutes);
+app.use('/drafts', draftRoutes);
 app.use('/blogs/:id/comments', commentRoutes);
 app.use('/blogs/:id/comments/:comment_id/replies', replyRoutes);
 app.use('/', indexRoutes);

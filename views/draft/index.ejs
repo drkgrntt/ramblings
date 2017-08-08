@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+
+<div class="ui main text container">
+  <div class="ui huge header">Drafts</div>
+  <div class="ui top attached segment">
+    <div class="ui divided items">
+      <% for (let i = drafts.length-1; i >= 0; i--) { %>
+        <% if (drafts[i].body != undefined) { %>
+          <div class="item">
+            <div class="image">
+              <img src="<%= drafts[i].image %>">
+            </div>
+            <div class="content">
+              <a class="header" href="/drafts/<%= drafts[i]._id %>"><%= drafts[i].title %></a>
+              <div class="description">
+                <p><%- drafts[i].body.substring(0, 100) %>...</p>
+              </div>
+              <div class="extra">
+                <a class="ui floated basic violet button" href="/drafts/<%= drafts[i]._id %>">
+                  Read More
+                  <i class="right chevron icon"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+
+<div class="ui main text container segment">
+  <div class="ui huge header"><%= draft.title %> (draft)</div>
+  <div class="ui top attached">
+    <div class="item">
+      <img class="ui centered rounded image" src="<%= draft.image %>">
+      <div class="description">
+        <p><%- draft.body %></p>
+        <hr>
+        <a class="ui orange basic button" href="/drafts/<%= draft._id %>/edit">Edit</a>
+        <form class="delete" action="/drafts/<%= draft._id %>?_method=DELETE" method="POST">
+          <button class="ui red basic button">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>
