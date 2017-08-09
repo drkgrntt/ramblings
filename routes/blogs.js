@@ -40,7 +40,6 @@ router.get('/new', middleware.isAdmin, (req, res) => {
 
 // CREATE ROUTE
 router.post('/', middleware.isAdmin, (req, res) => {
-  req.body.blog.body = req.sanitize(req.body.blog.body);
   // create blog
   Blog.create(req.body.blog, (err) => {
     if (err) {
@@ -105,7 +104,6 @@ router.get('/:id/edit', middleware.isAdmin, (req, res) => {
 
 // UPDATE ROUTE
 router.put('/:id', middleware.isAdmin, (req, res) => {
-  req.body.blog.body = req.sanitize(req.body.blog.body);
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err) => {
     if (err) {
       res.redirect('/blogs');

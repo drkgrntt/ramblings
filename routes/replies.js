@@ -35,7 +35,6 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
         if (err2) {
           res.redirect('back');
         } else {
-          req.body.reply.body = req.sanitize(req.body.reply.body);
           Reply.create(req.body.reply, (err3, reply) => {
             if (err3) {
               res.redirect('back');

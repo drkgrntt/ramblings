@@ -44,7 +44,6 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
     if (err) {
       res.redirect('/blogs');
     } else {
-      req.body.comment.body = req.sanitize(req.body.comment.body);
       Comment.create(req.body.comment, (err2, comment) => {
         if (err2) {
           res.redirect('back');
