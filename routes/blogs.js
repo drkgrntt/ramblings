@@ -62,7 +62,7 @@ router.post('/', middleware.isAdmin, (req, res) => {
           let mailTo = {
             from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
             subject: 'New Blog Post!',
-            html: '<p>Hi! I just created a new blog post!</p><br><p><a href="ramblings.herokuapp.com">Come check it out!</a></p>'
+            html: '<p>Hi! I just created a new blog post!</p><br><a href="ramblings.herokuapp.com">Come check it out!</a>'
           };
           mailTo.to = email;
           mailer.sendMail(mailTo, (err3, info) => {

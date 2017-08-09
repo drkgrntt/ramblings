@@ -17,7 +17,10 @@
   <div class="ui huge header">New Comment</div>
   <form class="ui form" action="/blogs/<%= blog._id %>/comments" method="POST">
     <div class="field">
-      <textarea name="comment[text]"></textarea>
+      <textarea name="comment[text]" id="editor2"></textarea>
+      <script type="text/javascript">
+        CKEDITOR.replace("editor2");
+      </script>
     </div>        
     <input class="ui violet big basic button" type="submit">
   </form>
