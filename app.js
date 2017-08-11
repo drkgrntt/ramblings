@@ -4,8 +4,10 @@ const LocalStrategy = require('passport-local');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const favicon = require('serve-favicon');
 const express = require('express');
 const flash = require('connect-flash');
+const path = require('path');
 
 const app = express();
 
@@ -24,6 +26,7 @@ const url = process.env.DATABASEURL || 'mongodb://localhost/blog_app';
 mongoose.connect(url);
 mongoose.Promise = global.Promise;
 app.set('view engine', 'ejs');
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
