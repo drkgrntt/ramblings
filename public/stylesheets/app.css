@@ -36,6 +36,23 @@ hr {
   border: 0;
 }
 
+.description {
+  word-wrap: break-word;
+}
+
+h2>a {
+  color: black;
+}
+
+h2>a:hover {
+  color: black;
+}
+
+.more {
+  text-align: center;
+  margin: 35px;
+}
+
 /* FLASH STYLES */
 
 .success {
@@ -43,6 +60,7 @@ hr {
   color: rgb(0, 150, 0);
   border: 1px solid rgb(150, 255, 150);
 }
+
 .error {
   background-color: rgba(255, 200, 200, .7);
   color: rgb(150, 0, 0);
@@ -72,6 +90,18 @@ body {
   background-color: rgba(235, 235, 255, .6);
 }
 
+.ui.segment {
+  background-color: rgba(235, 235, 255, .6);
+}
+
 .ui.menu {
   background: rgba(255, 245, 245, .6);
+}
+
+.ui.button {
+  background-color: rgba(235, 235, 255, .6);
+}
+
+.ui.button:hover {
+  background-color: rgba(235, 235, 255, .6);
 }

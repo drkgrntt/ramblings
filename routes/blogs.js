@@ -24,11 +24,22 @@ let emails = [];
 
 // INDEX ROUTE
 router.get('/', (req, res) => {
-  Blog.find().sort({ created: 1 }).exec((err, blogs) => {
+  Blog.find().sort({ created: -1 }).exec((err, blogs) => {
     if (err) {
       console.log(err);
     } else {
       res.render('index', { blogs });
+    }
+  });
+});
+
+// ALL BLOGS
+router.get('/all', (req, res) => {
+  Blog.find().sort({ created: 1 }).exec((err, blogs) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('blog/all_blogs', { blogs });
     }
   });
 });

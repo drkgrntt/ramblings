@@ -4,7 +4,7 @@
   <div class="ui huge header">Ramblings</div>
   <div class="ui top attached segment">
     <div class="ui divided items">
-      <% for (let i = blogs.length-1; i >= 0; i--) { %>
+      <% for (let i = 0; i < 5; i++) { %>
         <% if (blogs[i].body != undefined) { %>
           <div class="item">
             <div class="image">
@@ -29,6 +29,9 @@
         <% } %>
       <% } %>
     </div>
+  </div>
+  <div class="more">
+    <a class="ui button" href="/blogs/all">See all blog posts!</a>
   </div>
 </div>
 

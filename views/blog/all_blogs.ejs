@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+
+<div class="ui container">
+  <div class="ui huge header">All Blog Posts</div>
+
+  <div class="ui grid">
+    <% for (let i = 0; i < blogs.length; i++) { %>
+      <% if (blogs[i].body != undefined) { %>
+        <div class="four wide column">
+          <div class="ui segment">
+            <h2 class="header"><a href="/blogs/<%= blogs[i]._id %>"><%= blogs[i].title %></a></h2>
+            <div class="ui medium image">
+              <img src="<%= blogs[i].image %>">
+            </div>
+          </div>
+        </div>
+      <% } %>
+    <% } %>
+  </div>
+
+</div>
+
+<% include ../partials/footer %>
