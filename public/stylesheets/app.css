@@ -53,6 +53,30 @@ h2>a:hover {
   margin: 35px;
 }
 
+.select-style {
+  margin: 20px 0;
+  width: 200px;
+  border: 1px solid rgb(130, 130, 130);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.select-style select {
+  padding: 5px 8px;
+  width: 100%;
+  border: none;
+  background-color: rgba(220, 220, 220, .5);
+  font-weight: bold;
+}
+
+.select-style select:focus {
+  outline: none;
+}
+
+.four.wide.column.hide {
+  display: none;
+}
+
 /* FLASH STYLES */
 
 .success {

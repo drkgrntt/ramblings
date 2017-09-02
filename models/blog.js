@@ -4,6 +4,7 @@ const blogSchema = new mongoose.Schema({
   title: String,
   image: String,
   body: String,
+  category: String,
   created: { type: Date, default: Date.now },
   comments: [
     {

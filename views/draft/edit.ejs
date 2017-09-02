@@ -4,6 +4,41 @@
   <div class="ui huge header">Edit <%= draft.title %> (draft)</div>
   <form class="ui form" method="POST">
     <div class="field">
+      <label>Category</label>
+      <input 
+        type="radio" 
+        name="blog[category]" 
+        value="Faith" 
+        <% if (blog.category === "Faith") { %>
+          checked
+        <% } %>
+      > Faith
+      <input 
+        type="radio" 
+        name="blog[category]" 
+        value="Fashion"
+        <% if (blog.category === "Fashion") { %>
+          checked
+        <% } %>
+      > Fashion
+      <input 
+        type="radio" 
+        name="blog[category]" 
+        value="Fitness"
+        <% if (blog.category === "Fitness") { %>
+          checked
+        <% } %>
+      > Fitness
+      <input 
+        type="radio" 
+        name="blog[category]" 
+        value="Other"
+        <% if (blog.category === "Other") { %>
+          checked
+        <% } %>
+      > Other
+    </div>
+    <div class="field">
       <label>Title</label>
       <input type="text" name="blog[title]" value="<%= draft.title %>">
     </div>

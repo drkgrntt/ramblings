@@ -1,12 +1,23 @@
 <% include ../partials/header %>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 
 <div class="ui container">
   <div class="ui huge header">All Blog Posts</div>
-
+  <div class="select-style">
+    <select>
+      <option value="All">All</option>
+      <option value="Faith">Faith</option>
+      <option value="Fashion">Fashion</option>
+      <option value="Fitness">Fitness</option>
+    </select>
+  </div>
   <div class="ui grid">
     <% for (let i = 0; i < blogs.length; i++) { %>
       <% if (blogs[i].body != undefined) { %>
-        <div class="four wide column">
+        <div class="four wide column <%= blogs[i].category %>">
           <div class="ui segment">
             <h2 class="header"><a href="/blogs/<%= blogs[i]._id %>"><%= blogs[i].title %></a></h2>
             <div class="ui medium image">
@@ -17,7 +28,7 @@
       <% } %>
     <% } %>
   </div>
-
 </div>
 
+<script type="text/javascript" src="/scripts/select.js"></script>
 <% include ../partials/footer %>

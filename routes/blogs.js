@@ -38,6 +38,8 @@ router.get('/all', (req, res) => {
   Blog.find().sort({ created: 1 }).exec((err, blogs) => {
     if (err) {
       console.log(err);
+    } else if (req.xhr) {
+      res.json(blogs);
     } else {
       res.render('blog/all_blogs', { blogs });
     }
