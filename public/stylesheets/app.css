@@ -45,6 +45,11 @@ img {
   word-wrap: break-word;
 }
 
+p {
+  font-size: 19px;
+  font-family: 'Source Sans Pro';
+}
+
 h2>a {
   color: black;
 }
