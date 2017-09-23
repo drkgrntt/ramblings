@@ -32,7 +32,7 @@ $('select').on('change', () => {
             <div class="ui segment">
               <h2 class="header"><a href="/blogs/${blog._id}">${blog.title}</a></h2>
               <div class="ui medium image">
-                <img src="${blog.image}">
+                <img class="allBlogs" src="${blog.image}">
               </div>
             </div>
           </div>
