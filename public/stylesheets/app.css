@@ -20,6 +20,13 @@ img {
   height: auto;
 }
 
+img.allBlogs {
+  max-height: 230px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 .comments {
   border: 1px solid rgb(100, 100, 100);
   border-radius: 15px;
