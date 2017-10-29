@@ -7,7 +7,7 @@ const User = require('../models/user');
 const middleware = require('../middleware');
 
 // NODEMAILER CONFIG
-let mailer = nodemailer.createTransport({
+let transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 25,
   secure: false,
@@ -71,13 +71,13 @@ router.post('/', middleware.isAdmin, (req, res) => {
           }
         });
         emails.forEach((email) => {
-          let mailTo = {
+          const mailOptions = {
             from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
             subject: 'New Blog Post!',
             html: '<p>Hi! I just created a new blog post!</p><br><a href="ramblings.herokuapp.com">Come check it out!</a>'
           };
-          mailTo.to = email;
-          mailer.sendMail(mailTo, (err3, info) => {
+          mailOptions.to = email;
+          transporter.sendMail(mailOptions, (err3, info) => {
             if (err3) {
               console.log(err3);
             } else {

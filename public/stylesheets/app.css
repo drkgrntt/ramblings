@@ -21,7 +21,7 @@ img {
 }
 
 img.allBlogs {
-  max-height: 230px;
+  max-height: 225px;
   width: auto;
   display: block;
   margin: 0 auto;
@@ -124,25 +124,25 @@ body {
 }
 
 .ui.top.attached.segment {
-  background-color: rgba(235, 235, 255, .6);
+  background-color: rgba(215, 215, 255, .8);
 }
 
 .ui.main.text.container.segment {
-  background-color: rgba(235, 235, 255, .6);
+  background-color: rgba(215, 215, 255, .8);
 }
 
 .ui.segment {
-  background-color: rgba(235, 235, 255, .6);
+  background-color: rgba(215, 215, 255, .8);
 }
 
 .ui.menu {
-  background: rgba(255, 245, 245, .6);
+  background: rgba(255, 235, 235, .8);
 }
 
 .ui.button {
-  background-color: rgba(235, 235, 255, .6);
+  background-color: rgba(215, 215, 255, .8);
 }
 
 .ui.button:hover {
-  background-color: rgba(235, 235, 255, .6);
+  background-color: rgba(215, 215, 255, .8);
 }
