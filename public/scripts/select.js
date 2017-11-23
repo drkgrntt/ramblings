@@ -1,16 +1,11 @@
 /* global $ */
-/* global blogs */
 
 $('select').on('change', () => {
   let value = $('select option:selected').val();
-  console.log('=================');
-  console.log(`Value = ${value}.`);
-  console.log('=================');
   $('.ui.grid').html('');
   $.get('/blogs/all', (blogs) => {
     blogs.forEach((blog) => {
       if (value === 'All') {
-        console.log(blog.title);
         $('.ui.grid').append(`
       
           <div class="four wide column ${blog.category}">
@@ -24,7 +19,6 @@ $('select').on('change', () => {
 
         `);
       } else if (blog.category === value) {
-        console.log(blog.title);
 
         $('.ui.grid').append(`
       
