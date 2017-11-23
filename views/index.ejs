@@ -16,7 +16,7 @@
                 <span><%= blogs[i].created.toDateString() %></span>
               </div>
               <div class="description">
-                <p><%- blogs[i].body.substring(0, 150) %>...</p>
+                <p><%- blogs[i].body.substring(0, 140) %>...</p>
               </div>
               <div class="extra">
                 <a class="ui floated basic violet button" href="/blogs/<%= blogs[i]._id %>">
