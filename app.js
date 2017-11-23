@@ -1,6 +1,7 @@
 const expressSanitizer = require('express-sanitizer');
 const methodOverride = require('method-override');
 const LocalStrategy = require('passport-local');
+const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
@@ -10,6 +11,7 @@ const flash = require('connect-flash');
 const path = require('path');
 
 const app = express();
+const keys = require('./config/keys');
 
 // MODELS
 const User = require('./models/user');
@@ -22,8 +24,7 @@ const replyRoutes = require('./routes/replies');
 const indexRoutes = require('./routes/index');
 
 // APP CONFIG
-const url = process.env.DATABASEURL || 'mongodb://localhost/blog_app';
-mongoose.connect(url);
+mongoose.connect(keys.databaseURL);
 mongoose.Promise = global.Promise;
 app.set('view engine', 'ejs');
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
@@ -34,14 +35,13 @@ app.use(expressSanitizer());
 app.use(methodOverride('_method'));
 app.use(flash());
 
-// SESSION CONFIG
-app.use(require('express-session')(
-  {
-    secret: 'Once again Maggie wins cutest dog!',
-    resave: false,
-    saveUninitialized: false
-  }
-));
+// COOKIE CONFIG
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
 
 // PASSPORT CONFIG
 app.use(passport.initialize());

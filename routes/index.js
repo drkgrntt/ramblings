@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
-const Blog = require('../models/blog');
 const middleware = require('../middleware');
+const keys = require('../config/keys');
 
 router.get('/', (req, res) => {
   res.redirect('/blogs');
@@ -18,7 +18,7 @@ router.get('/register', (req, res) => {
 // HANDLE REGISTER LOGIC
 router.post('/register', (req, res) => {
   const newUser = new User({ username: req.body.username, email: req.body.email });
-  if (req.body.adminCode === process.env.ADMINCODE) {
+  if (req.body.adminCode === keys.adminCode) {
     newUser.isAdmin = true;
   }
   User.register(newUser, req.body.password, (err) => {

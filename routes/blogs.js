@@ -5,6 +5,7 @@ const router = express.Router();
 const Blog = require('../models/blog');
 const User = require('../models/user');
 const middleware = require('../middleware');
+const keys = require('../config/keys');
 
 // NODEMAILER CONFIG
 let transporter = nodemailer.createTransport({
@@ -13,7 +14,7 @@ let transporter = nodemailer.createTransport({
   secure: false,
   auth: {
     user: 'ramblingsblogger@gmail.com',
-    pass: process.env.EMAILPASSWORD
+    pass: keys.emailPassword
   },
   tls: {
     rejectUnauthorized: false
@@ -54,7 +55,7 @@ router.get('/new', middleware.isAdmin, (req, res) => {
 // CREATE ROUTE
 router.post('/', middleware.isAdmin, (req, res) => {
   // create blog
-  Blog.create(req.body.blog, (err) => {
+  Blog.create(req.body.blog, (err, blog) => {
     if (err) {
       console.log(err);
       req.flash('error', 'Uh oh, something went wrong');

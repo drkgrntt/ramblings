@@ -5,6 +5,7 @@ const router = express.Router({ mergeParams: true });
 const Blog = require('../models/blog');
 const Comment = require('../models/comment');
 const middleware = require('../middleware');
+const keys = require('../config/keys');
 
 let mailer = nodemailer.createTransport({
   service: 'gmail',
@@ -12,7 +13,7 @@ let mailer = nodemailer.createTransport({
   secure: false,
   auth: {
     user: 'ramblingsblogger@gmail.com',
-    pass: process.env.EMAILPASSWORD
+    pass: keys.emailPassword
   },
   tls: {
     rejectUnauthorized: false
