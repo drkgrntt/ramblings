@@ -1,11 +1,34 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const multer = require('multer');
+const cloudinary = require('cloudinary');
 
 const router = express.Router();
 const Blog = require('../models/blog');
 const User = require('../models/user');
 const middleware = require('../middleware');
 const keys = require('../config/keys');
+
+// MULTER CONFIG
+const storage = multer.diskStorage({
+  filename: (req, file, callback) => {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+const imageFilter = (req, file, cb) => {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error('Only image files are allowed!'), false);
+  }
+  cb(null, true)
+};
+const upload = multer({ storage, fileFilter: imageFilter });
+
+// CLOUDINARY CONFIG
+cloudinary.config({
+  cloud_name: 'drkgrntt',
+  api_key: keys.cloudinaryKey,
+  api_secret: keys.cloudinarySecret
+});
 
 // NODEMAILER CONFIG
 let transporter = nodemailer.createTransport({
@@ -53,41 +76,42 @@ router.get('/new', middleware.isAdmin, (req, res) => {
 });
 
 // CREATE ROUTE
-router.post('/', middleware.isAdmin, (req, res) => {
-  // create blog
-  Blog.create(req.body.blog, (err, blog) => {
-    if (err) {
-      console.log(err);
-      req.flash('error', 'Uh oh, something went wrong');
-      res.redirect('/blogs');
-    } else {
-      // redirect to the index
-      req.flash('success', 'Blog post created!');
-      res.redirect('/blogs');
-      User.find({}, (err2, allUsers) => {
-        emails = [];
-        allUsers.forEach((user) => {
-          if (user.isSubscribed) {
-            emails.push(user.email);
-          }
-        });
-        emails.forEach((email) => {
-          const mailOptions = {
-            from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
-            subject: 'New Blog Post!',
-            html: '<p>Hi! I just created a new blog post!</p><br><a href="ramblings.herokuapp.com">Come check it out!</a>'
-          };
-          mailOptions.to = email;
-          transporter.sendMail(mailOptions, (err3, info) => {
-            if (err3) {
-              console.log(err3);
-            } else {
-              console.log('Message sent: ', info.messageId, info.response);
+router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
+  cloudinary.uploader.upload(req.file.path, (result) => {
+    req.body.blog.image = result.secure_url;
+    Blog.create(req.body.blog, (err, blog) => {
+      if (err) {
+        req.flash('error', 'Uh oh, something went wrong');
+        res.redirect('/blogs');
+      } else {
+        // redirect to the index
+        req.flash('success', 'Blog post created!');
+        res.redirect('/blogs');
+        User.find({}, (err2, allUsers) => {
+          emails = [];
+          allUsers.forEach((user) => {
+            if (user.isSubscribed) {
+              emails.push(user.email);
             }
           });
+          emails.forEach((email) => {
+            const mailOptions = {
+              from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
+              subject: 'New Blog Post!',
+              html: '<p>Hi! I just created a new blog post!</p><br><a href="ramblings.herokuapp.com">Come check it out!</a>'
+            };
+            mailOptions.to = email;
+            transporter.sendMail(mailOptions, (err3, info) => {
+              if (err3) {
+                console.log(err3);
+              } else {
+                console.log('Message sent: ', info.messageId, info.response);
+              }
+            });
+          });
         });
-      });
-    }
+      }
+    });
   });
 });
 

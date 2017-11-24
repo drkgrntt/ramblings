@@ -2,7 +2,7 @@
 
 <div class="ui main text container segment">
   <div class="ui huge header">New Blog</div>
-  <form class="ui form" method="POST">
+  <form class="ui form" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>Category</label>
       <input type="radio" name="blog[category]" value="Faith"> Faith
@@ -15,8 +15,8 @@
       <input type="text" name="blog[title]" placeholder="title">
     </div>
     <div class="field">
-      <label>Image URL</label>
-      <input type="text" name="blog[image]" placeholder="image">
+      <label>Image</label>
+      <input type="file" name="image" placeholder="image" accept="image/*" required>
     </div>
     <div class="field">
       <label>Blog Content</label>
