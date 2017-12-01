@@ -5,6 +5,7 @@ const User = require('../models/user');
 // all middleware goes here
 const middlewareObj = {};
 
+// check if user is an admin
 middlewareObj.isAdmin = (req, res, next) => {
   if (req.user.isAdmin) {
     return next();
@@ -12,17 +13,20 @@ middlewareObj.isAdmin = (req, res, next) => {
   res.redirect('/blogs');
 };
 
+// check if user owns the comment
 middlewareObj.checkCommentOwnership = (req, res, next) => {
-  //is user logged in?
+  // is user logged in?
   if (req.isAuthenticated()) {
+    // find selected comment
     Comment.findById(req.params.comment_id, (err, foundComment) => {
       if (err) {
         req.flash('error', 'You need to be logged in to do that.');
         res.redirect('back');
       } else {
-        //does user own the comment?
+        // does user own the comment?
         if (foundComment.author.id.equals(req.user._id)) {
           next();
+        // trump card: is the user an admin?
         } else if (req.user.isAdmin) {
           next();
         } else {
@@ -37,9 +41,11 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
   }
 };
 
+// check if user owns the reply
 middlewareObj.checkReplyOwnership = (req, res, next) => {
-  //is user logged in?
+  // is user logged in?
   if (req.isAuthenticated()) {
+    // find selected reply
     Reply.findById(req.params.reply_id, (err, foundReply) => {
       if (err) {
         req.flash('error', 'You need to be logged in to do that.');
@@ -47,6 +53,7 @@ middlewareObj.checkReplyOwnership = (req, res, next) => {
       // does the user own the comment?
       } else if (foundReply.author.id.equals(req.user._id)) {
         next();
+      // trump card, is the user an admin?
       } else if (req.user.isAdmin) {
         next();
       } else {
@@ -60,7 +67,9 @@ middlewareObj.checkReplyOwnership = (req, res, next) => {
   }
 };
 
+// check if user is logged in
 middlewareObj.isLoggedIn = (req, res, next) => {
+  // is user logged in?
   if (req.isAuthenticated()) {
     return next();
   }

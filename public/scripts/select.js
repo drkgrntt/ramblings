@@ -1,10 +1,12 @@
 /* global $ */
 
+// FOR CATEGORY SELECTOR IN /BLOGS/ALL
 $('select').on('change', () => {
   let value = $('select option:selected').val();
   $('.ui.grid').html('');
   $.get('/blogs/all', (blogs) => {
     blogs.forEach((blog) => {
+      // if 'all', render all blogs
       if (value === 'All') {
         $('.ui.grid').append(`
       
@@ -18,6 +20,8 @@ $('select').on('change', () => {
           </div>
 
         `);
+        
+      // render blogs by their category
       } else if (blog.category === value) {
 
         $('.ui.grid').append(`

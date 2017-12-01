@@ -48,6 +48,7 @@ let emails = [];
 
 // INDEX ROUTE
 router.get('/', (req, res) => {
+  // newest blog posts at the top
   Blog.find().sort({ created: -1 }).exec((err, blogs) => {
     if (err) {
       console.log(err);
@@ -59,6 +60,7 @@ router.get('/', (req, res) => {
 
 // ALL BLOGS
 router.get('/all', (req, res) => {
+  // oldest blog posts at the top
   Blog.find().sort({ created: 1 }).exec((err, blogs) => {
     if (err) {
       console.log(err);
@@ -70,15 +72,18 @@ router.get('/all', (req, res) => {
   });
 });
 
-// NEW ROUTE
+// NEW BLOG ROUTE
 router.get('/new', middleware.isAdmin, (req, res) => {
   res.render('blog/new');
 });
 
 // CREATE ROUTE
 router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
+  // upload picture to cloudinary
   cloudinary.uploader.upload(req.file.path, (result) => {
+    // use cloudinary image url as req.body.blog.image
     req.body.blog.image = result.secure_url;
+    // create new blog post with data in req.body.blog
     Blog.create(req.body.blog, (err, blog) => {
       if (err) {
         req.flash('error', 'Uh oh, something went wrong');
@@ -87,13 +92,17 @@ router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
         // redirect to the index
         req.flash('success', 'Blog post created!');
         res.redirect('/blogs');
+        // after blog is created, find all users
         User.find({}, (err2, allUsers) => {
+          // clear the emails array
           emails = [];
+          // if the user is subscribed, add their email to the emails array
           allUsers.forEach((user) => {
             if (user.isSubscribed) {
               emails.push(user.email);
             }
           });
+          // send all subscribed users an email notification of a new blog post
           emails.forEach((email) => {
             const mailOptions = {
               from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
@@ -117,8 +126,11 @@ router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
 
 // SHOW ROUTE
 router.get('/:id', (req, res) => {
+  // find selected blog post
   Blog.findById(req.params.id)
+  // find nested comments
   .populate('comments')
+  // find nested comment replies
   .populate({ path: 'comments', populate: { path: 'replies' } })
   .exec((err, foundBlog) => {
     if (err) {
@@ -131,6 +143,7 @@ router.get('/:id', (req, res) => {
 
 // EDIT ROUTE
 router.get('/:id/edit', middleware.isAdmin, (req, res) => {
+  // find selected blog post for the update form
   Blog.findById(req.params.id, (err, foundBlog) => {
     if (err) {
       res.redirect('/blogs');
@@ -142,6 +155,7 @@ router.get('/:id/edit', middleware.isAdmin, (req, res) => {
 
 // UPDATE ROUTE
 router.put('/:id', middleware.isAdmin, (req, res) => {
+  // update selected blog with data in req.body.blog
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err) => {
     if (err) {
       res.redirect('/blogs');

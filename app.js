@@ -23,10 +23,14 @@ const commentRoutes = require('./routes/comments');
 const replyRoutes = require('./routes/replies');
 const indexRoutes = require('./routes/index');
 
-// APP CONFIG
+// MONGOOSE CONFIG
 mongoose.connect(keys.databaseURL);
 mongoose.Promise = global.Promise;
+
+// EMBEDDED JAVASCRIPT FOR VIEWS
 app.set('view engine', 'ejs');
+
+// MIDDLEWARE CONFIG
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -50,7 +54,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// FOR EVERY TEMPLATE
+// MIDDLEWARE FOR EVERY TEMPLATE
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');

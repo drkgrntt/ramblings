@@ -1,3 +1,4 @@
+// SAVED IN HEROKU CONFIG VARS
 module.exports = {
   adminCode: process.env.ADMINCODE,
   databaseURL: process.env.DATABASEURL,
