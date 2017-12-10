@@ -136,6 +136,10 @@ router.get('/:id', (req, res) => {
     if (err) {
       res.redirect('/blogs');
     } else {
+      // add a view to page view counter
+      foundBlog.views ++;
+      foundBlog.save();
+      // render blog
       res.render('blog/show', { blog: foundBlog });
     }
   });

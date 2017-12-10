@@ -11,7 +11,8 @@ const blogSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Comment'
     }
-  ]
+  ],
+  views: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('Blog', blogSchema);

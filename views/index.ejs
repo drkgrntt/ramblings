@@ -5,7 +5,7 @@
   <div class="ui top attached segment">
     <div class="ui divided items">
       <% for (let i = 0; i < 5; i++) { %>
-        <% if (blogs[i].body != undefined) { %>
+        <% if (blogs[i] !== undefined) { %>
           <div class="item">
             <div class="image">
               <img src="<%= blogs[i].image %>">

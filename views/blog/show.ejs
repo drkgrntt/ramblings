@@ -64,4 +64,9 @@
   </div>
 </div>
 
+<!-- blog view tracker -->
+<% if(currentUser && currentUser.isAdmin) { %>
+  <%= blog.views %>
+<% } %>
+
 <% include ../partials/footer %>
