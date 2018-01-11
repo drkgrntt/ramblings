@@ -1,8 +1,32 @@
 const express = require('express');
+const multer = require('multer');
+const cloudinary = require('cloudinary');
 
 const router = express.Router();
 const Draft = require('../models/draft');
 const middleware = require('../middleware');
+const keys = require('../config/keys');
+
+// MULTER CONFIG
+const storage = multer.diskStorage({
+  filename: (req, file, callback) => {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+const imageFilter = (req, file, cb) => {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error('Only image files are allowed!'), false);
+  }
+  cb(null, true)
+};
+const upload = multer({ storage, fileFilter: imageFilter });
+
+// CLOUDINARY CONFIG
+cloudinary.config({
+  cloud_name: 'drkgrntt',
+  api_key: keys.cloudinaryKey,
+  api_secret: keys.cloudinarySecret
+});
 
 // DRAFTS ARE TO SAVE BLOG IDEAS WITHOUT DISPLAYING THEM TO THE PUBLIC
 // ALL DRAFT ROUTES ARE ONLY AVAILABLE TO ADMIN USERS
@@ -21,17 +45,22 @@ router.get('/', middleware.isAdmin, (req, res) => {
 });
 
 // CREATE ROUTE
-router.post('/', middleware.isAdmin, (req, res) => {
-  // create a draft with data in req.body.blog
-  Draft.create(req.body.blog, (err) => {
-    if (err) {
-      console.log(err);
-      req.flash('error', 'Uh oh, something went wrong.');
-      res.redirect('back');
-    } else {
-      req.flash('success', 'Successfully saved as a draft!');
-      res.redirect('/drafts');
-    }
+router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
+  // upload picture to cloudinary
+  cloudinary.uploader.upload(req.file.path, (result) => {
+    // use cloudinary image url as req.body.blog.image
+    req.body.blog.image = result.secure_url;
+    // create new draft with data in req.body.blog
+    Draft.create(req.body.blog, (err, draft) => {
+      if (err) {
+        console.log(err);
+        req.flash('error', 'Uh oh, something went wrong.');
+        res.redirect('back');
+      } else {
+        req.flash('success', 'Successfully saved as a draft!');
+        res.redirect('/drafts');
+      }
+    });
   });
 });
 

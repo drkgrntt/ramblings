@@ -36,8 +36,8 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
       }
     });
   } else {
-        req.flash('error', 'You need to be logged in to do that.');
-        res.redirect('back');
+    req.flash('error', 'You need to be logged in to do that.');
+    res.redirect('back');
   }
 };
 
@@ -73,7 +73,7 @@ middlewareObj.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.flash('error', 'Please login first!');
+  req.flash('error', 'Please login first or create an account using the "Sign Up" button in the top right corner!');
   res.redirect('/login');
 };
 
