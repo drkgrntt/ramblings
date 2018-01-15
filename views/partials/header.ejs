@@ -17,7 +17,9 @@
         <div class="header item"><i class="fa fa-paint-brush"></i></div>
         <a href="/" class="item">Home</a>
         <a href="/blogs/all" class="item">See All</a>
+        <a href="/heartlandtohome" class="item">Heartland To Home</a>
         <% if (currentUser && currentUser.isAdmin) { %>
+          <a href="/heartlandtohome/new" class="item">New Listing</a>
           <a href="/blogs/new" class="item">New Post</a>
           <a href="/drafts" class="item">Drafts</a>
         <% } %>

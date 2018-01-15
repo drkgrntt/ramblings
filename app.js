@@ -22,6 +22,7 @@ const draftRoutes = require('./routes/drafts');
 const commentRoutes = require('./routes/comments');
 const replyRoutes = require('./routes/replies');
 const indexRoutes = require('./routes/index');
+const h2hRoutes = require('./routes/h2hRoutes');
 
 // MONGOOSE CONFIG
 mongoose.connect(keys.databaseURL);
@@ -68,6 +69,7 @@ app.use('/drafts', draftRoutes);
 app.use('/blogs/:id/comments', commentRoutes);
 app.use('/blogs/:id/comments/:comment_id/replies', replyRoutes);
 app.use('/', indexRoutes);
+app.use('/heartlandtohome', h2hRoutes);
 
 // FIRE IT UP
 app.listen(process.env.PORT || 8080, process.env.IP, () => {

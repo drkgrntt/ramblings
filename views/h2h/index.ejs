@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+  <div class="flash banner">
+    <p>Welcome to my Etsy shop display! This is where I showcase the prints I create for my shop! If you like what you see and are interested in anything, or if you have an interest in any custom prints, please feel free to visit my Etsy shop and reach out! You can visit my shop by clicking the "Heartland To Home" title, or check out an individual item!</p>
+  </div>
+  <a href="https://www.etsy.com/shop/HeartlandToHome">
+    <div class="ui huge header">
+      Heartland To Home
+    </div>
+  </a>
+</div>
+<div class="container ui five column stackable grid">
+  <% for (let i = 0; i < listings.length; i++) { %>
+    <% if (listings[i].title != undefined) { %>
+      <div class="column">
+        <div class="ui card">
+          <div class="image">
+            <img src="<%= listings[i].image %>">
+          </div>
+          <div class="content">
+            <a href="<%= listings[i].url %>" class="header"><%= listings[i].title.substring(0, 32) %>...</a>
+            <div class="meta">
+              <span class="date">$<%= listings[i].price %></span>
+            </div>
+            <% if (currentUser && currentUser.isAdmin) { %>
+              <a class="ui orange basic button small" href="/heartlandtohome/<%= listings[i]._id %>/edit">Edit</a>
+              <form class="delete" action="/heartlandtohome/<%= listings[i]._id %>?_method=DELETE" method="POST">
+                <button class="ui red basic button small">Delete</button>
+              </form>
+            <% } %>
+          </div>
+          <div class="extra content">
+            <a href="<%= listings[i].url %>">
+              View in the shop!
+            </a>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  <% } %>
+</div>
+
+<% include ../partials/footer %>
