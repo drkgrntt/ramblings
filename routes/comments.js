@@ -9,7 +9,7 @@ const keys = require('../config/keys');
 
 // NODEMAILER CONFIG
 // NOTIFIES OWNER THE SOMEONE COMMENTED ON A BLOG POST
-let mailer = nodemailer.createTransport({
+let transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 25,
   secure: false,
@@ -22,7 +22,7 @@ let mailer = nodemailer.createTransport({
   }
 });
 
-let mailTo = {
+let mailOptions = {
   from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
   to: 'cmaxey02@gmail.com',
   subject: 'New Comment!',
@@ -63,7 +63,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
           req.flash('success', 'Successfully created new comment!');
           res.redirect(`/blogs/${blog._id}`);
           // email blog owner of comment
-          mailer.sendMail(mailTo, (err3, info) => {
+          transporter.sendMail(mailOptions, (err3, info) => {
             if (err3) {
               console.log(err3);
             } else {
