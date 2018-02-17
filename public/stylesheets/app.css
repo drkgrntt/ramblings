@@ -155,3 +155,11 @@ body {
 .ui.button:hover {
   background-color: rgba(215, 215, 255, .8);
 }
+
+.derek {
+  height: 40px;
+  position: fixed;
+  margin: 0 auto;
+  bottom: 0%;
+  width: 100%;
+}
