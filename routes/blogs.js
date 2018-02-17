@@ -25,24 +25,13 @@ const upload = multer({ storage, fileFilter: imageFilter });
 
 // CLOUDINARY CONFIG
 cloudinary.config({
-  cloud_name: 'drkgrntt',
+  cloud_name: keys.cloudName,
   api_key: keys.cloudinaryKey,
   api_secret: keys.cloudinarySecret
 });
 
 // NODEMAILER CONFIG
-let transporter = nodemailer.createTransport({
-  service: 'gmail',
-  port: 25,
-  secure: false,
-  auth: {
-    user: 'ramblingsblogger@gmail.com',
-    pass: keys.emailPassword
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
+let transporter = nodemailer.createTransport(`smtps://${keys.blogEmail}:${keys.emailPassword}@smtp.gmail.com`);
 
 let emails = [];
 
@@ -105,7 +94,7 @@ router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
           // send all subscribed users an email notification of a new blog post
           emails.forEach((email) => {
             const mailOptions = {
-              from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
+              from: `"Ramblings Blog" ${blogEmail}`,
               subject: 'New Blog Post!',
               html: '<p>Hi! I just created a new blog post!</p><br><a href="ramblings.herokuapp.com">Come check it out!</a>'
             };

@@ -14,7 +14,7 @@ let transporter = nodemailer.createTransport({
   port: 25,
   secure: false,
   auth: {
-    user: 'ramblingsblogger@gmail.com',
+    user: keys.blogEmail,
     pass: keys.emailPassword
   },
   tls: {
@@ -24,7 +24,7 @@ let transporter = nodemailer.createTransport({
 
 let mailOptions = {
   from: '"Ramblings Blog" <ramblingsblogger@gmail.com>',
-  to: 'cmaxey02@gmail.com',
+  to: keys.adminEmail,
   subject: 'New Comment!',
   html: '<p>Someone commented on a post!<br><a href="ramblings.herokuapp.com">Check it out!</a></p>'
 };

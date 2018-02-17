@@ -15,13 +15,12 @@ hr {
   background-image: -o-linear-gradient(left, #555, #bbb, #555); 
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+.ui.medium.image {
+  height: 205px;
 }
 
-img.allBlogs {
-  max-height: 225px;
+.allBlogs {
+  max-height: 200px;
   width: auto;
   display: block;
   margin: 0 auto;
