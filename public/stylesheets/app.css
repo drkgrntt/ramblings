@@ -157,9 +157,16 @@ body {
 }
 
 .derek {
-  height: 40px;
-  position: fixed;
-  margin: 0 auto;
-  bottom: 0%;
-  width: 100%;
+  height: 70px;
+  width: 150px;
+  font-weight: bold;
+  margin: 20px;
+  bottom: 0;
+  right: 0;
+  display: inline-block;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  background-color: rgb(230,230,230);
+  background-color: rgba(230,230,230,0.3);
+  float: right;
 }
