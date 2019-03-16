@@ -48,7 +48,7 @@ hr {
 }
 
 .content {
-  background: rgba(215, 215, 255, .8)
+  background: transparent;
 }
 
 .description {

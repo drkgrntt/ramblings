@@ -25,7 +25,8 @@ const upload = multer({ storage, fileFilter: imageFilter });
 
 // CLOUDINARY CONFIG
 cloudinary.config({
-  cloud_name: keys.cloudName,
+  // cloud_name: keys.cloudName,
+  cloud_name: 'ramblingsblog',
   api_key: keys.cloudinaryKey,
   api_secret: keys.cloudinarySecret
 });
@@ -70,8 +71,11 @@ router.get('/new', middleware.isAdmin, (req, res) => {
 router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
   // upload picture to cloudinary
   cloudinary.uploader.upload(req.file.path, (result) => {
+
     // use cloudinary image url as req.body.blog.image
     req.body.blog.image = result.secure_url;
+
+    console.log(req.body);
     // create new blog post with data in req.body.blog
     Blog.create(req.body.blog, (err, blog) => {
       if (err) {

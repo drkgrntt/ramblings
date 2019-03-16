@@ -23,7 +23,7 @@ const upload = multer({ storage, fileFilter: imageFilter });
 
 // CLOUDINARY CONFIG
 cloudinary.config({
-  cloud_name: 'drkgrntt',
+  cloud_name: keys.cloudName,
   api_key: keys.cloudinaryKey,
   api_secret: keys.cloudinarySecret
 });
